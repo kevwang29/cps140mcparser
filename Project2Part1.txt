@@ -1,0 +1,48 @@
+size 40 40
+begin
+	cat cat1 0 0 east ;
+	cat cat2 1 0 east ;
+	cat cat3 2 0 east ;
+	mouse mouse1 0 39 west ;
+	mouse mouse2 1 39 west ;
+	mouse mouse3 2 39 west ;
+	hole 0 20 ;
+	hole 1 20 ;
+	hole 2 20 ;
+	
+	repeat 10
+		move cat1 ;
+		move cat2 ;
+		move cat3 ;
+		move mouse1 ;
+		move mouse2 ;
+		move mouse3 ;
+	end ;
+	
+	clockwise cat1 ;
+	clockwise cat2 ;
+	clockwise cat3 ;
+	
+	clockwise mouse1 ;
+	clockwise mouse2 ;
+	clockwise mouse3 ;
+	
+	clockwise cat1 ;
+	clockwise cat2 ;
+	clockwise cat3 ;
+	
+	clockwise mouse1 ;
+	clockwise mouse2 ;
+	clockwise mouse3 ;
+	
+	repeat 10
+		move cat1 ;
+		move cat2 ;
+		move cat3 ;
+		move mouse1 ;
+		move mouse2 ;
+		move mouse3 ;
+	end ;
+	
+	
+halt

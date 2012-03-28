@@ -1,0 +1,14 @@
+P' -> P
+P -> z i i b L t
+L -> S ;
+L -> L S ;
+S -> c v i i D
+S -> m v i i D
+S -> h i i
+S -> o v
+S -> l v
+S -> r i L d
+D -> n
+D -> s
+D -> e
+D -> w
