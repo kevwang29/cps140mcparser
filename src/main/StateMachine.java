@@ -6,4 +6,6 @@ public class StateMachine {
 	public StateMachine(String startState){
 		myStartState = startState;
 	}
+	
+	
 }

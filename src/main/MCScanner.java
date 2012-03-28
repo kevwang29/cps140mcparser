@@ -20,7 +20,7 @@ import exceptions.InvalidTokenException;
 
 
 public class MCScanner {
-	private TokenIdentifier tokenizer = new TokenIdentifier();
+	private TokenIdentifier tokenizer = TokenIdentifier.getInstance();
 
 	public void scanFile(String fileName){
 		File file = new File(fileName);

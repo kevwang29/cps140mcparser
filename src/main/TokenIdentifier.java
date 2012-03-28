@@ -24,13 +24,20 @@ import exceptions.InvalidTokenException;
 public class TokenIdentifier {
 	
 	List<Symbols> tokenList = new LinkedList<Symbols>();
-	public TokenIdentifier(){
+	static TokenIdentifier tokenizer;
+	
+	private TokenIdentifier(){
 		tokenList =new LinkedList<Symbols>(Arrays.asList(new Symbols[]{
 			new Direction(""), new symbols.parsevariables.List(""), new Program(""), new Statement(""),
 			new Begin(""), new Halt(""), new Cat(""), new Mouse(""), new Clockwise(""), new Move(""),
 			new North(""), new South(""), new East(""), new West(""), new Hole(""), new Repeat(""), 
 			new Size(""), new End(""), new Integers(""), new Semicolon(" "), new Variables(" ")
 		}));
+	}
+	
+	public static TokenIdentifier getInstance(){
+		if(tokenizer == null) tokenizer = new TokenIdentifier();
+		return tokenizer;
 	}
 	
 	public Symbols generateToken(String token) throws InvalidTokenException, CommentException{

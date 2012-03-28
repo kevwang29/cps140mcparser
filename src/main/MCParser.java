@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import exceptions.CommentException;
+import exceptions.InvalidTokenException;
+
 import symbols.Symbols;
 
 public class MCParser {
@@ -160,21 +163,40 @@ public class MCParser {
 			char firstChar = transition.charAt(0);
 			if(firstChar == 'r' || firstChar == 's'){
 				if(firstChar == 's') {
-					parseShift(transition);
+					parseShift(transition, input);
 				}
 				if(firstChar == 'r'){
-					parseReduce(transition);
+					parseReduce(transition, input);
 				}
+			} else{
+				myCurrentState = transition;
 			}
 		}
 	}
 
-	private void parseReduce(String transition) {
-		// TODO Auto-generated method stub
+	private void parseReduce(String transition, List<Symbols> input) {
+		Rule rule = myRules.get(Integer.parseInt(transition.substring(1)));
+		int backtrackCount = rule.getRHS().split(" ").length;
+		myIndex-=backtrackCount;
+		while(backtrackCount>0){
+			input.remove(myIndex);
+		}
+		
+		try {
+			input.add(myIndex, TokenIdentifier.getInstance().generateToken(rule.RHS));
+		} catch (InvalidTokenException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CommentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		resetInitialStates();
 		
 	}
 
-	private void parseShift(String transition) {
+	private void parseShift(String transition, List<Symbols> input) {
 		myIndex++;
 		myCurrentState = transition.substring(1);
 		
