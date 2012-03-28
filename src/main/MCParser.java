@@ -13,8 +13,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import symbols.Symbols;
+
 public class MCParser {
 	
+	
+	String startState = "0";
+	String myCurrentState;
+	int myIndex=0;
+	Map<String, HashMap<String,String>> myParseMap;
 	List<Rule> myRules;
 	
 	private class Rule{
@@ -84,16 +91,16 @@ public class MCParser {
 			return;
 		}
 
-		Map<String, HashMap<String,String>> parseMap = new HashMap<String, HashMap<String, String>>();
+		myParseMap = new HashMap<String, HashMap<String, String>>();
 		try {
 			//repeat twice because table format is folded into two rows
-			fillData(parseMap, parseData);
-			fillData(parseMap, parseData);
+			fillData(myParseMap, parseData);
+			fillData(myParseMap, parseData);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		printContentOfParseMap(parseMap);
+		//printContentOfParseMap(myParseMap);
 
 	}
 
@@ -143,5 +150,40 @@ public class MCParser {
 		}	
 	}
 
+	public void parse(List<Symbols> input) throws Exception{
+		resetInitialStates();
+		
+		while(true){
+			Symbols nextSymbol = input.get(myIndex);
+			String transition = myParseMap.get(myCurrentState).get(nextSymbol.getSymbol());
+			if(transition == null) throw new Exception();
+			char firstChar = transition.charAt(0);
+			if(firstChar == 'r' || firstChar == 's'){
+				if(firstChar == 's') {
+					parseShift(transition);
+				}
+				if(firstChar == 'r'){
+					parseReduce(transition);
+				}
+			}
+		}
+	}
+
+	private void parseReduce(String transition) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void parseShift(String transition) {
+		myIndex++;
+		myCurrentState = transition.substring(1);
+		
+		
+	}
+
+	private void resetInitialStates() {
+		myCurrentState = new String(startState);
+		myIndex = 0;		
+	}
 	
 }

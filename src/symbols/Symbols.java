@@ -31,6 +31,10 @@ public abstract class Symbols {
 		return myType;
 	}
 	
+	public String getSymbol(){
+		return mySymbol;
+	}
+	
 	public abstract String getChValue();
 	
 	public abstract Integer getIntValue();
